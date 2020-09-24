@@ -212,7 +212,7 @@ function! s:SearchWithGrep(grepcmd, grepprg, grepargs, grepformat) "{{{
     let &l:grepprg  = a:grepprg
     let &grepformat = a:grepformat
 
-    silent execute a:grepcmd a:grepargs
+    call asyncrun#run("!", { 'strip': 1 }, a:grepprg . " " . a:grepargs)
   finally
     let &l:grepprg  = l:grepprg_bak
     let &grepformat = l:grepformat_bak
