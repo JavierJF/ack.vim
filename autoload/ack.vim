@@ -210,9 +210,9 @@ function! s:SearchWithGrep(grepcmd, grepprg, grepargs, grepformat) "{{{
 
   try
     let &l:grepprg  = a:grepprg
-    let &grepformat = a:grepformat
+    let l:options = { 'strip': 1, 'errorformat': a:grepformat }
 
-    call asyncrun#run("!", { 'strip': 1 }, a:grepprg . " " . a:grepargs)
+    call asyncrun#run("!", l:options, a:grepprg . " " . a:grepargs)
   finally
     let &l:grepprg  = l:grepprg_bak
     let &grepformat = l:grepformat_bak
